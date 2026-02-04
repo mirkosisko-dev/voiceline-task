@@ -7,46 +7,46 @@ import (
 
 type Config struct {
 	Server struct {
-		Port string `mapstructure:"port"`
-	} `mapstructure:"server"`
+		Port string
+	}
 	OpenAI struct {
-		APIKey          string `mapstructure:"api_key"`
-		TranscribeModel string `mapstructure:"transcribe_model"`
-		ChatModel       string `mapstructure:"chat_model"`
-	} `mapstructure:"openai"`
+		APIKey          string
+		TranscribeModel string
+		ChatModel       string
+	}
 	FileMetadata struct {
-		MaxFileSize int64 `mapstructure:"max_file_size"`
-	} `mapstructure:"filemetadata"`
+		MaxFileSize int64
+	}
 	Sink struct {
-		WebhookURL     string `mapstructure:"webhook_url"`
-		TimeoutSeconds int64  `mapstructure:"timeout_seconds"`
-		FailRequest    bool   `mapstructure:"fail_request"`
-	} `mapstructure:"sink"`
+		WebhookURL     string
+		TimeoutSeconds int64
+		FailRequest    bool
+	}
 }
 
 func Load() *Config {
 	return &Config{
 		Server: struct {
-			Port string `mapstructure:"port"`
+			Port string
 		}{Port: getEnv("PORT", "8080")},
 		OpenAI: struct {
-			APIKey          string `mapstructure:"api_key"`
-			TranscribeModel string `mapstructure:"transcribe_model"`
-			ChatModel       string `mapstructure:"chat_model"`
+			APIKey          string
+			TranscribeModel string
+			ChatModel       string
 		}{
 			APIKey:          getEnv("OPENAI_API_KEY", ""),
 			TranscribeModel: getEnv("OPENAI_TRANSCRIBE_MODEL", "gpt-4o-transcribe"),
 			ChatModel:       getEnv("OPENAI_CHAT_MODEL", "gpt-4o-mini"),
 		},
 		FileMetadata: struct {
-			MaxFileSize int64 `mapstructure:"max_file_size"`
+			MaxFileSize int64
 		}{
 			MaxFileSize: getEnvInt("MAX_FILE_SIZE", 15728640),
 		},
 		Sink: struct {
-			WebhookURL     string `mapstructure:"webhook_url"`
-			TimeoutSeconds int64  `mapstructure:"timeout_seconds"`
-			FailRequest    bool   `mapstructure:"fail_request"`
+			WebhookURL     string
+			TimeoutSeconds int64
+			FailRequest    bool
 		}{
 			WebhookURL:     getEnv("SINK_WEBHOOK_URL", ""),
 			TimeoutSeconds: getEnvInt("SINK_WEBHOOK_TIMEOUT_SECONDS", 10),
